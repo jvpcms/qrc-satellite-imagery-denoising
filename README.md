@@ -1,1 +1,1 @@
-# QRC_Satelite_Imagery_Denoising
+# qrc-satellite-imagery-denoising
