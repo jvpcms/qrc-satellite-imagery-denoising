@@ -116,7 +116,8 @@ def bootstrap_grid(boots, deltas, sigmas, metrics, subtitle=""):
             if r == 0:
                 ax.set_title(f"σ = {s}", fontsize=10)
             if c == 0:
-                ax.set_ylabel(f"mean {LABELS[m]}", fontsize=8)
+                ax.set_ylabel(f"mean {LABELS[m]}\n[{BETTER[m]} → hybrid better]",
+                              fontsize=8)
             verdict = "contains 0" if lo <= 0.0 <= hi else "excludes 0"
             ax.text(0.02, 0.95, f"95% CI {verdict}", transform=ax.transAxes,
                     fontsize=7, va="top")

@@ -27,28 +27,39 @@ pipelines equally limited by the dimensionality bottleneck inherent to QRC simul
 
 ## Setup
 
+Requires Python 3.10–3.13 — the pinned TensorFlow version currently has no matching
+distributions for 3.14+.
+
+Create and activate a virtual environment, for example with `venv`:
+
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python3.13 -m venv .venv && source .venv/bin/activate
+```
+
+Then install the pinned dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
-Developed with Python 3.12 on Linux, GPU: NVIDIA RTX 3050 (4 GB).
+Developed with Python 3.13 on Linux, GPU: NVIDIA RTX 3050 (4 GB).
 
 ## Three ways to reproduce
 
-### 1. Analysis only (fast, no GPU)
+### 1. Analysis only (fast)
 
 The per-image metric arrays for all four noise levels are committed in `results/`, so the
 statistical analysis and both paper figures reproduce directly:
 
 ```bash
-jupyter notebook 02_analysis.ipynb   # run all cells, ~1 min
+jupyter notebook 02_analysis.ipynb   # run all cells
 ```
 
-### 2. Evaluate the provided models (no training, no GPU needed)
+### 2. Evaluate the provided models (no training)
 
 Fetch the trained models and cached reservoir embeddings from the GitHub Release
-(~8.4 GB):
+(~8.4 GB). These are the models and embeddings used to produce the numbers and figures
+in the paper:
 
 ```bash
 python download_artifacts.py
@@ -65,11 +76,11 @@ for s in 0.1 0.3 0.5 0.7; do
 done
 ```
 
-### 3. Full pipeline from scratch (GPU)
+### 3. Full pipeline from scratch
 
 Same command as above, without downloading anything first. Per σ: EuroSAT download is
-automatic (~90 MB from Zenodo); reservoir embeddings take ≈ 4 h on a 4 GB GPU (cached to
-`models/`); each MLP trains in ≈ 1–2 h. Every stage is cached — rerunning skips whatever
+automatic (~90 MB from Zenodo); reservoir embeddings take ≈ 4 h on an RTX 3050 (cached
+to `models/`). Every stage is cached — rerunning skips whatever
 already exists, so the three modes are just different starting points of the same
 notebook.
 
